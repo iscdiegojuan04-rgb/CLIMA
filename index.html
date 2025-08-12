@@ -85,7 +85,7 @@
         document.getElementById("icon").innerHTML = `<img src="${iconUrl}" alt="${data.weather[0].description}">`;
 
         const temp = currentUnit === "C"
-          ? `${Math.round(tempC)} `
+          ? `${Math.round(tempC)} C`
           : `${Math.round(tempC * 9/5 + 32)} `;
         document.getElementById("temp").innerText = temp;
 
@@ -103,7 +103,7 @@
     // Alterna unidad de temperatura
     document.getElementById("unit-switch").onclick = () => {
       currentUnit = currentUnit === "C" ? "F" : "C";
-      document.getElementById("unit-switch").innerText = currentUnit === "C" ? "°C" : "°F";
+      document.getElementById("unit-switch").innerText = currentUnit === "C" ? "" : "°F";
       fetchWeather();
     };
 
