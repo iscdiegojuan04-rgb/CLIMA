@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima en Playa del Carmen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e0f7fa;
+            padding: 20px;
+        }
+        h1 {
+            color: #00796b;
+        }
+        #weather {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        img {
+            width: 100px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Clima en Playa del Carmen</h1>
+    <div id="weather">Cargando clima...</div>
+    <div id="gif"></div>
+
+    <script>
+        const apiKey = "b687118aeb5dc56e6e08303ee837c181";
+        const city = "Playa del Carmen";
+        const countryCode = "MX";
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${apiKey}&units=metric&lang=es`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error en la respuesta");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const temp = data.main.temp;
+                const description = data.weather[0].description;
+                const icon = data.weather[0].icon;
+
+                document.getElementById("weather").innerHTML =
+                    `Temperatura: ${temp}°C<br>${description}`;
+
+                // Mostrar GIF según el clima
+                let gifUrl = "";
+                if (description.includes("nube")) {
+                    gifUrl = "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif";
+                } else if (description.includes("lluvia")) {
+                    gifUrl = "https://media.giphy.com/media/26xBukhP1rX5GxKoo/giphy.gif";
+                } else if (description.includes("sol")) {
+                    gifUrl = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
+                } else {
+                    gifUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+                }
+
+                document.getElementById("gif").innerHTML = `<img src="${gifUrl}" alt="Clima">`;
+            })
+            .catch(error => {
+                document.getElementById("weather").innerHTML = "No se pudo cargar el clima.";
+                console.error(error);
+            });
+    </script>
+
+</body>
+</html>
