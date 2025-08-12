@@ -1,63 +1,30 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Clima</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #e0f7fa;
-            padding: 20px;
-        }
-        h1 {
-            color: #00796b;
-        }
-        #weather {
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        img {
-            width: 100px;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Clima en vivo</title>
 </head>
 <body>
+  <h1>Clima en mi ciudad</h1>
+  <div id="clima">Cargando...</div>
 
-    <h1>Clima Hoy</h1>
-    <div id="weather">Cargando clima...</div>
-    <div id="gif"></div>
+  <script>
+    const API_KEY = "b687118aeb5dc56e6e08303ee837c181"; // de OpenWeather
+    const CIUDAD = "Mexico City";
 
-    <script>
-        const apiKey = "b687118aeb5dc56e6e08303ee837c181";
-        const city = "Playa del Carmen";
-        const countryCode = "MX";
+    async function obtenerClima() {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${CIUDAD}&units=metric&lang=es&appid=${API_KEY}`;
+      const res = await fetch(url);
+      const datos = await res.json();
+      document.getElementById("clima").innerText =
+        `${datos.weather[0].description} - ${datos.main.temp}°C`;
+    }
 
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${apiKey}&units=metric&lang=es`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Error en la respuesta");
-                }
-                return response.json();
-            })
-            .then(data => {
-                const temp = data.main.temp;
-                const description = data.weather[0].description;
-                const icon = data.weather[0].icon;
+    // Primera carga
+    obtenerClima();
 
-                document.getElementById("weather").innerHTML =
-                    `Temperatura: ${temp}°C<br>${description}`;
-
-
-             
-            })
-            .catch(error => {
-                document.getElementById("weather").innerHTML = "No se pudo cargar el clima.";
-                console.error(error);
-            });
-    </script>
-
+    // Actualizar cada 5 minutos
+    setInterval(obtenerClima, 5 * 60 * 1000);
+  </script>
 </body>
 </html>
