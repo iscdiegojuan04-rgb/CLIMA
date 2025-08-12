@@ -85,8 +85,8 @@
         document.getElementById("icon").innerHTML = `<img src="${iconUrl}" alt="${data.weather[0].description}">`;
 
         const temp = currentUnit === "C"
-          ? `${Math.round(tempC)} °C`
-          : `${Math.round(tempC * 9/5 + 32)} °F`;
+          ? `${Math.round(tempC)} `
+          : `${Math.round(tempC * 9/5 + 32)} `;
         document.getElementById("temp").innerText = temp;
 
         document.getElementById("humidity").innerText = `${humidity}%`;
