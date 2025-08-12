@@ -58,10 +58,9 @@
                     gifUrl = "https://media.giphy.com/media/26xBukhP1rX5GxKoo/giphy.gif";
                 } else if (description.includes("sol")) {
                     gifUrl = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
-                } else if(description.includes("lluvia")) {
+                } else {
                     gifUrl = `https://cdn-icons-mp4.flaticon.com/512/18971/18971736.mp4`;
-                } else{
-                }
+                } 
 
                 document.getElementById("gif").innerHTML = `<img src="${gifUrl}" alt="Clima">`;
             })
