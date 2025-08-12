@@ -102,8 +102,8 @@
 
     // Alterna unidad de temperatura
     document.getElementById("unit-switch").onclick = () => {
-      currentUnit = currentUnit === "C" ? "F" : "C";
-      document.getElementById("unit-switch").innerText = currentUnit === "C" ? "" : "°F";
+      currentUnit = currentUnit === "" ? "F" : "";
+      document.getElementById("unit-switch").innerText = currentUnit === "" ? "" : "°F";
       fetchWeather();
     };
 
