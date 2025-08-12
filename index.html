@@ -50,17 +50,6 @@
                 document.getElementById("weather").innerHTML =
                     `Temperatura: ${temp}°C<br>${description}`;
 
-                // Mostrar GIF según el clima
-                let gifUrl = "";
-                if (description.includes("nube")) {
-                    gifUrl = "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif";
-                } else if (description.includes("lluvia")) {
-                    gifUrl = "https://media.giphy.com/media/26xBukhP1rX5GxKoo/giphy.gif";
-                } else if (description.includes("sol")) {
-                    gifUrl = "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif";
-                } else {
-                    gifUrl = `https://cdn-icons-mp4.flaticon.com/512/18971/18971736.mp4`;
-                } 
 
                 document.getElementById("gif").innerHTML = `<img src="${gifUrl}" alt="Clima">`;
             })
